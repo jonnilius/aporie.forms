@@ -1,0 +1,36 @@
+# PowerShell temporary files
+*.ps1.bak
+*.ps1.bk
+*.ps1.tmp
+*.ps1~
+*.tmp
+
+# Windows junk
+Thumbs.db
+Desktop.ini
+*.lnk
+
+# Editor settings
+.vscode/
+.idea/
+*.code-workspace
+
+# Log files
+*.log
+
+# Build / release output
+bin/
+obj/
+release/
+dist/
+
+# PowerShell Module Cache
+*.psm1.ps1
+*.ps1.d
+*.cache/
+
+# Packaging
+*.zip
+*.7z
+*.tar
+*.gz
