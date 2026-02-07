@@ -182,7 +182,7 @@ function createButton {
         [string]$DialogResult = 'None'              # DialogResult (None, OK, Cancel, Abort, Retry, Ignore, Yes, No)
     )
 
-    $defaults = @{
+    $p = Merge-Config -Config $config -Defaults @{
         Width      = $Width
         Height     = $Height
         Location   = $Location
@@ -218,7 +218,6 @@ function createButton {
         ImageList  = $ImageList
         DialogResult = $DialogResult
     }
-    $p = Merge-Config -Defaults $defaults -Config $config
     
     # === Button-Objekt erzeugen ===
     $button = New-Object System.Windows.Forms.Button
@@ -315,7 +314,7 @@ function createCheckBox {
         [bool]$ThreeState = $false              # Drei-Zustände-Modus (Unchecked, Checked, Indeterminate)
     )
 
-    $defaults = @{
+    $p = Merge-Config -Config $config -Defaults @{
         Width       = $Width
         Height      = $Height
         Location    = $Location
@@ -332,7 +331,6 @@ function createCheckBox {
         Anchor      = $Anchor
         ThreeState  = $ThreeState
     }
-    $p = Merge-Config -Defaults $defaults -Config $config
 
     $checkBox = New-Object System.Windows.Forms.CheckBox
     $checkBox.Location     = createLocation -Location $p.Location -Padding $p.Padding -Left $p.Left -Top $p.Top
@@ -384,7 +382,7 @@ function createCheckedListBox {
         [int]$ItemHeight = 20           # Höhe der Listeneinträge
     )
 
-    $defaults = @{
+    $p = Merge-Config -Config $config -Defaults @{
         Width         = $Width
         Height        = $Height
         Location      = $Location
@@ -406,7 +404,6 @@ function createCheckedListBox {
         ColumnWidth   = $ColumnWidth
         ItemHeight    = $ItemHeight
     }
-    $p = Merge-Config -Defaults $defaults -Config $config
 
     $checkedListBox = New-Object System.Windows.Forms.CheckedListBox
     $checkedListBox.Location        = createLocation -Location $p.Location -Padding $p.Padding -Left $p.Left -Top $p.Top
@@ -474,7 +471,7 @@ function createDropDownList {
         [string]$ValueMember    = ""                    # Wert-Eigenschaft bei Objekten
     )
 
-    $defaults = @{
+    $p = Merge-Config Config $config -Defaults @{
         Height            = $Height
         Width             = $Width
         Location          = $Location
@@ -504,7 +501,6 @@ function createDropDownList {
         DisplayMember     = $DisplayMember
         ValueMember       = $ValueMember
     }
-    $p = Merge-Config -Defaults $defaults -Config $config
 
     $dropDownList = New-Object System.Windows.Forms.ComboBox
     $dropDownList.Location          = createLocation -Location $p.Location -Padding $p.Padding -Left $p.Left -Top $p.Top
@@ -576,7 +572,7 @@ function createForm {
         [bool]$MaximizeBox = $false                   # Maximieren-Schaltfläche
     )
 
-    $defaults = @{
+    $p = Merge-Config -Config $config -Defaults @{
         Width           = $Width
         Height          = $Height
         StartPosition   = $StartPosition
@@ -589,7 +585,6 @@ function createForm {
         MinimizeBox     = $MinimizeBox
         MaximizeBox     = $MaximizeBox
     }
-    $p = Merge-Config -Defaults $defaults -Config $config
 
     # Formular erstellen und Eigenschaften setzen
     $form = New-Object System.Windows.Forms.Form
@@ -663,7 +658,7 @@ function createLabel {
         [string]$Description    = ''            # Beschreibung des Labels
     )
 
-    $defaults = @{
+    $p = Merge-Config -Config $config -Defaults @{
         Width       = $Width
         Height      = $Height
         Location    = $Location
@@ -685,7 +680,6 @@ function createLabel {
         Visible     = $Visible
         Description = $Description
     }
-    $p = Merge-Config -Defaults $defaults -Config $config
 
     $label = New-Object System.Windows.Forms.Label
     $label.Location     = createLocation -Location $p.Location -Left $p.Left -Top $p.Top
@@ -743,7 +737,7 @@ function createListBox {
         [bool]$AutoScroll = $true               # horizontaler Scrollbalken bei Überlänge
     )
 
-    $defaults = @{
+    $p = Merge-Config -Config $config -Defaults @{
         Height        = $Height
         Width         = $Width
         Location      = $Location
@@ -758,7 +752,6 @@ function createListBox {
         SelectionMode = $SelectionMode
         AutoScroll    = $AutoScroll
     }
-    $p = Merge-Config -Defaults $defaults -Config $config
 
     $listBox = New-Object System.Windows.Forms.ListBox
     $listBox.Location      = createLocation -Location $p.Location -Padding $p.Padding -Left $p.Left -Top $p.Top
@@ -804,7 +797,7 @@ function createPanel {
         [bool]$AutoScroll = $false  # Automatisches Scrollen
     )
 
-    $defaults = @{
+    $p = Merge-Config -Config $config -Defaults @{
         Height      = $Height
         Width       = $Width
         Location    = $Location
@@ -817,7 +810,6 @@ function createPanel {
         BorderStyle = $BorderStyle
         AutoScroll  = $AutoScroll
     }
-    $p = Merge-Config -Defaults $defaults -Config $config
 
     $panel = New-Object System.Windows.Forms.Panel
     $panel.Location = createLocation -Location $p.Location -Padding $p.Padding -Left $p.Left -Top $p.Top
@@ -877,7 +869,7 @@ function createRichTextBox {
         [string]$Description = ''                 # Tooltip/Beschreibung
     )
 
-    $defaults = @{
+    $p = Merge-Config -Config $config -Defaults @{
         Width       = $Width
         Height      = $Height
         Location    = $Location
@@ -897,7 +889,6 @@ function createRichTextBox {
         Visible     = $Visible
         Description = $Description
     }
-    $p = Merge-Config -Defaults $defaults -Config $config
 
     $rtb = New-Object System.Windows.Forms.RichTextBox
     $rtb.Location      = createLocation -Location $p.Location -Left $p.Left -Top $p.Top -Padding $p.Padding
@@ -953,7 +944,7 @@ function createRadioButton {
         [string]$Anchor = 'Top,Right,Left'      # Ankerposition
     )
 
-    $defaults = @{
+    $p = Merge-Config -Config $config -Defaults @{
         Width      = $Width
         Height     = $Height
         Location   = $Location
@@ -968,7 +959,6 @@ function createRadioButton {
         ForeColor  = $ForeColor
         Anchor     = $Anchor
     }
-    $p = Merge-Config -Defaults $defaults -Config $config
 
     $radioButton = New-Object System.Windows.Forms.RadioButton
     $radioButton.Location     = createLocation -Location $p.Location -Padding $p.Padding -Left $p.Left -Top $p.Top
