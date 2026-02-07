@@ -18,6 +18,22 @@ $global:LabelToolTip  = New-Object System.Windows.Forms.ToolTip # Tooltip für L
 
 # ═════ BASICS ═════════════════════════════════════════════════════════════════
 function Merge-Config {
+    <# 
+    .SYNOPSIS
+    Fügt zwei Hashtables zusammen.
+    
+    .DESCRIPTION
+    Diese Funktion nimmt eine Hashtable mit Standardwerten und eine weitere Hashtable mit benutzerdefinierten Werten entgegen. 
+    Sie überschreibt die Standardwerte mit den benutzerdefinierten Werten, sofern diese nicht null oder leer sind. 
+    Das Ergebnis ist die modifizierte Defaults-Hashtable.
+
+    .PARAMETER Defaults
+    Standardwerte, die verwendet werden, wenn keine benutzerdefinierten Werte angegeben sind.
+
+    .PARAMETER Config
+    Benutzerdefinierte Werte, die die Standardwerte überschreiben.
+    #>
+    [CmdletBinding()]
     param (
         [hashtable]$Defaults,
         [hashtable]$Config
