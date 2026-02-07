@@ -550,28 +550,35 @@ function createDropDownList {
 }
 function createForm {
     param (
-        # Hashtable-Konfiguration (optional)
-        [hashtable]$config,
-        [object]$controls,
-
-        # Größe & Position
-        [int]$Width = 400,                            # Breite des Fensters
-        [int]$Height = 300,                           # Höhe des Fensters
-        [string]$StartPosition = 'CenterScreen',      # Startposition (CenterScreen, Manual, WindowsDefaultLocation)
+        # Größe
+        [int]$Width     = 400,                          # Breite des Fensters
+        [int]$Height    = 300,                          # Höhe des Fensters
+        
+        # Position
+        [int[]]$Padding         = 0,                    # Innenabstand (Padding) des Fensters (0 oder 4 Werte: Alle Seiten, Links, Oben, Rechts, Unten)
+        [string]$StartPosition  = 'CenterScreen',       # Startposition (CenterScreen, Manual, WindowsDefaultLocation)
         
         # Darstellung
-        [string]$Text = "Fenstertitel",               # Fenstertitel
-        [string]$BackColor = $AccentColor,            # Hintergrundfarbe (HTML oder Name)
-        [string]$FormBorderStyle = 'FixedSingle',     # Rahmenstil (None, FixedSingle, Fixed3D, Sizable, etc.)
+        [string]$Text               = "Fenstertitel",   # Fenstertitel
+        [string]$BackColor          = $AccentColor,     # Hintergrundfarbe (HTML oder Name)
+        [string]$FormBorderStyle    = 'FixedSingle',    # Rahmenstil (None, FixedSingle, Fixed3D, Sizable, etc.)
         
         # Fensterverhalten
-        [bool]$TopMost = $true,                       # Immer im Vordergrund
-        [bool]$ShowIcon = $false,                     # Icon anzeigen
-        [string]$Base64,                              # Base64-Icon
-        [bool]$MinimizeBox = $false,                  # Minimieren-Schaltfläche
-        [bool]$MaximizeBox = $false                   # Maximieren-Schaltfläche
-    )
+        [bool]$TopMost      = $true,                    # Immer im Vordergrund
+        [bool]$ShowIcon     = $false,                   # Icon anzeigen
+        [string]$Base64,                                # Base64-Icon
+        [bool]$MinimizeBox  = $false,                   # Minimieren-Schaltfläche
+        [bool]$MaximizeBox  = $false,                   # Maximieren-Schaltfläche
 
+        
+        # Sonstige Eigenschaften (optional)
+        [hashtable]$config,
+
+        # Panels, Controls hinzufügen
+        [System.Windows.Forms.Panel[]]$Panels,
+        [object]$Controls
+    )
+    # === Parameter zusammenführen ===
     $p = Merge-Config -Config $config -Defaults @{
         Width           = $Width
         Height          = $Height
@@ -586,8 +593,9 @@ function createForm {
         MaximizeBox     = $MaximizeBox
     }
 
-    # Formular erstellen und Eigenschaften setzen
+    # === Form-Objekt erzeugen ===
     $form = New-Object System.Windows.Forms.Form
+
     $form.ClientSize        = New-Object System.Drawing.Size($p.Width, $p.Height)
     $form.StartPosition     = $p.StartPosition
     $form.FormBorderStyle   = $p.FormBorderStyle
