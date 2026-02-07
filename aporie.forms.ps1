@@ -973,8 +973,7 @@ function createTextBox {
         [hashtable]$config,
 
         # Darstellung
-        [string]$FlatStyle   = 'Flat',    # Stil des TextBox (Flat, Standard)
-        [string]$Text        = 'TextBox',      # Standardtext
+        [string]$Text        = 'TextBox',     # Standardtext
         [string]$BorderStyle = 'FixedSingle', # Rahmenstil (None, FixedSingle, Fixed3D)
 
         # Größe & Position
@@ -994,27 +993,26 @@ function createTextBox {
         [string]$BackColor = $DarkColor     # Hintergrundfarbe
     )
 
-    $defaults = @{
-        FlatStyle   = $FlatStyle
-        Text        = $Text
-        BorderStyle = $BorderStyle
-        Height      = $Height
-        Width       = $Width
-        Anchor      = $Anchor
-        Location    = $Location
-        Left        = $Left
-        Top         = $Top
-        Padding     = $Padding
-        FontFamily  = $FontFamily
-        FontSize    = $FontSize
-        ForeColor   = $ForeColor
-        BackColor   = $BackColor
+    $p = Merge-Config -Config $config -Defaults @{
+            Text        = $Text
+            BorderStyle = $BorderStyle
+            Height      = $Height
+            Width       = $Width
+            Anchor      = $Anchor
+            Location    = $Location
+            Left        = $Left
+            Top         = $Top
+            Padding     = $Padding
+            FontFamily  = $FontFamily
+            FontSize    = $FontSize
+            ForeColor   = $ForeColor
+            BackColor   = $BackColor
     }
-    $p = Merge-Config -Defaults $defaults -Config $config
 
     $textBox = New-Object System.Windows.Forms.TextBox
-    $textBox.Location      = createLocation -Location $p.Location -Padding $p.Padding -Left $p.Left -Top $p.Top
-    $textBox.Font       = createFont -FontFamily $p.FontFamily -FontSize $p.FontSize
+    $textBox.Location       = createLocation -Location $p.Location -Left $p.Left -Top $p.Top
+    $textBox.Padding        = createPadding -AllSides $p.Padding
+    $textBox.Font           = createFont -FontFamily $p.FontFamily -FontSize $p.FontSize
     $textBox.Text           = $p.Text
     $textBox.Height         = $p.Height
     $textBox.Width          = $p.Width
@@ -1026,7 +1024,6 @@ function createTextBox {
 
     # Rahmenstil festlegen
     $textBox.BorderStyle = [System.Windows.Forms.BorderStyle]::$($p.BorderStyle)
-    $textBox.FlatStyle = $p.FlatStyle
 
     return $textBox
 }
